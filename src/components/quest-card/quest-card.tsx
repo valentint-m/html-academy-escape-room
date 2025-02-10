@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Path } from '../../const';
 import { Quest } from '../../types/quest';
-import { getDifficultyLocalizedName } from '../../utils/utils';
+import { getDifficultyLocalizedName, getQuestUrlById } from '../../utils/utils';
 
 type QuestCardProps = {
   quest: Quest;
@@ -12,11 +11,11 @@ export default function QuestCard ({quest}: QuestCardProps): JSX.Element {
     <div className="quest-card">
       <div className="quest-card__img">
         <picture>
-          <source type="image/webp" srcSet={quest.previewImgWebp} /><img src={quest.previewImg} srcSet={quest.previewImgWebp} width="344" height="232" alt={quest.title} />
+          <source type="image/webp" srcSet={quest.previewImgWebp} /><img src={quest.previewImg} srcSet={quest.previewImg} width="344" height="232" alt={quest.title} />
         </picture>
       </div>
       <div className="quest-card__content">
-        <div className="quest-card__info-wrapper"><Link className="quest-card__link" to={Path.Quest}>{quest.title}</Link>
+        <div className="quest-card__info-wrapper"><Link className="quest-card__link" to={getQuestUrlById(quest.id)}>{quest.title}</Link>
         </div>
         <ul className="tags quest-card__tags">
           <li className="tags__item">
