@@ -27,35 +27,35 @@ enum Path {
 }
 
 enum Theme {
+  All = 'all',
   Adventure = 'adventure',
   Horror = 'horror',
   Mystic = 'mystic',
   Detective = 'detective',
   SciFi = 'sciFi',
-  All = 'all',
 }
 
 enum ThemeName {
+  All = 'Все квесты',
   Adventure = 'Приключения',
   Horror = 'Ужасы',
   Mystic = 'Мистика',
   Detective = 'Детектив',
   SciFi = 'Sci-fi',
-  All = 'Все квесты',
 }
 
 enum Difficulty {
+  Any = 'any',
   Easy = 'easy',
   Medium = 'medium',
   Hard = 'hard',
-  Any = 'any',
 }
 
 enum DifficultyName {
+  Any = 'Любой',
   Easy = 'Легкий',
   Medium = 'Средний',
   Hard = 'Сложный',
-  Any = 'Любой',
 }
 
 
