@@ -37,11 +37,11 @@ enum Path {
 
 enum Theme {
   All = 'all',
-  Adventure = 'adventure',
+  Adventure = 'adventures',
   Horror = 'horror',
   Mystic = 'mystic',
   Detective = 'detective',
-  SciFi = 'sciFi',
+  SciFi = 'sci-fi',
 }
 
 enum ThemeName {

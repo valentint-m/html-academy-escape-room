@@ -28,8 +28,8 @@ function getThemeLocalizedName (name: Theme) {
 }
 
 function filterQuests (quests: Quest[], theme: Theme, difficulty: Difficulty) {
-  const questsByDifficulty = quests.filter((quest) => quest.level === difficulty);
-  const questsByThemeAndDifficulty = questsByDifficulty.filter((quest) => quest.type === theme);
+  const questsByDifficulty = difficulty === Difficulty.Any ? quests : quests.filter((quest) => quest.level === difficulty);
+  const questsByThemeAndDifficulty = theme === Theme.All ? questsByDifficulty : questsByDifficulty.filter((quest) => quest.type === theme);
 
   return questsByThemeAndDifficulty;
 }

@@ -3,10 +3,10 @@ import Header from '../../components/header/header';
 import FilterForm from '../../components/filter-form/filter-form';
 import QuestCard from '../../components/quest-card/quest-card';
 import { useAppSelector } from '../../hooks';
-import { getQuests } from '../../store/quest-data/quest-data-selectors';
+import { getFilteredQuests } from '../../store/quest-data/quest-data-selectors';
 
 export default function MainScreen (): JSX.Element {
-  const quests = useAppSelector(getQuests);
+  const quests = useAppSelector(getFilteredQuests);
 
   return (
     <>
