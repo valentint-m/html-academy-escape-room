@@ -30,8 +30,10 @@ export default function Header (): JSX.Element {
           </ul>
         </nav>
         <div className="header__side-nav">
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <Link className="btn btn--accent header__side-item" to={Path.Main}>Выйти</Link>
+          ) : (
+            <Link className="btn header__side-item header__login-btn" to={Path.Login}>Вход</Link>
           )}
           <a className="link header__side-item header__phone-link" href="tel:88003335599">8 (000) 111-11-11</a>
         </div>
