@@ -12,7 +12,7 @@ export type UserProcess = {
 export type QuestData = {
   quests: Quest[];
   questById: QuestFullInfo;
-  bookingInfoById: BookingInfo;
+  bookingInfoById: BookingInfo[];
   reservedQuests: ReservedQuest[];
   selectedTheme: Theme;
   selectedDifficulty: Difficulty;

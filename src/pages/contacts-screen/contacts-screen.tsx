@@ -1,5 +1,7 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
+import { DefaultCompanyCoords } from '../../const';
 
 export default function ContactsScreen (): JSX.Element {
   return (
@@ -44,7 +46,9 @@ export default function ContactsScreen (): JSX.Element {
             </dl>
             <div className="contacts__map">
               <div className="map">
-                <div className="map__container"></div>
+                <div className="map__container">
+                  <Map locations={[DefaultCompanyCoords]} selectedPoint={undefined}/>
+                </div>
               </div>
             </div>
           </div>

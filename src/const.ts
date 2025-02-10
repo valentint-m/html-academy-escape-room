@@ -17,12 +17,21 @@ enum ApiRoute {
   Booking = 'booking',
 }
 
+enum UrlMarker {
+  Default = '/img/svg/pin-default.svg',
+  Selected = '/img/svg/pin-active.svg'
+}
+
+const DefaultCityCoords: [number, number] = [59.57, 30.19];
+const DefaultCompanyCoords: [number, number] = [59.968322, 30.317359];
+const DEFAULT_ZOOM = 8;
+
 enum Path {
   Main = '/',
   Login = '/login',
   Contacts = '/contacts',
   MyQuests = '/my-quests',
-  Booking = '/booking',
+  Booking = '/quest/:id/booking',
   Quest = '/quest/:id',
 }
 
@@ -58,5 +67,4 @@ enum DifficultyName {
   Hard = 'Сложный',
 }
 
-
-export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName };
+export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName, UrlMarker, DefaultCityCoords, DefaultCompanyCoords, DEFAULT_ZOOM };

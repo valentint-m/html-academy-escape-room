@@ -19,17 +19,7 @@ const initialState: QuestData = {
     coverImgWebp: '',
   },
   reservedQuests: [],
-  bookingInfoById: {
-    id: '',
-    location: {
-      address: '',
-      coords: [0, 0],
-    },
-    slots: {
-      today: [],
-      tomorrow: [],
-    }
-  },
+  bookingInfoById: [],
   selectedTheme: Theme.All,
   selectedDifficulty: Difficulty.Any,
   isQuestsDataLoading: false,
@@ -84,12 +74,15 @@ export const questData = createSlice({
         state.hasError = true;
       })
       .addCase(fetchBookingInfoByIdAction.pending, (state) => {
+        state.isQuestsDataLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchBookingInfoByIdAction.fulfilled, (state, action: PayloadAction<BookingInfo>) => {
+      .addCase(fetchBookingInfoByIdAction.fulfilled, (state, action: PayloadAction<BookingInfo[]>) => {
+        state.isQuestsDataLoading = false;
         state.bookingInfoById = action.payload;
       })
       .addCase(fetchBookingInfoByIdAction.rejected, (state) => {
+        state.isQuestsDataLoading = false;
         state.hasError = true;
       })
       .addCase(reserveQuestAction.pending, (state) => {

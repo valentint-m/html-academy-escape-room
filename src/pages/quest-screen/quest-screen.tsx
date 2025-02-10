@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchQuestByIdAction } from '../../store/api-actions/api-actions';
+import { fetchBookingInfoByIdAction, fetchQuestByIdAction } from '../../store/api-actions/api-actions';
 import { getQuestById } from '../../store/quest-data/quest-data-selectors';
 import { QuestFullInfo } from '../../types/quest';
 import { useParams } from 'react-router-dom';
@@ -18,6 +18,7 @@ export default function QuestScreen (): JSX.Element {
   useEffect(() => {
     if (pageId !== questById.id && pageId) {
       dispatch(fetchQuestByIdAction(pageId));
+      dispatch(fetchBookingInfoByIdAction(pageId));
     }
   }, [pageId, questById.id, dispatch]);
 

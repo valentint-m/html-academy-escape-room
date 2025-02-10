@@ -17,7 +17,7 @@ export const getFilteredQuests = (state: State): Quest[] => {
 
 export const getReservedQuests = (state: State): ReservedQuest[] => state[NameSpace.Data].reservedQuests;
 
-export const getBookingInfo = (state: State): BookingInfo => state[NameSpace.Data].bookingInfoById;
+export const getBookingInfo = (state: State): BookingInfo[] => state[NameSpace.Data].bookingInfoById;
 
 export const getThemeName = (state: State): Theme => state[NameSpace.Data].selectedTheme;
 

@@ -51,7 +51,12 @@ function App (): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={Path.Booking} element={<BookingScreen />} />
+        <Route path={Path.Booking} element={
+          <PrivateRoute>
+            <BookingScreen />
+          </PrivateRoute>
+        }
+        />
         <Route path={Path.Quest} element={<QuestScreen />} />
         <Route path={Path.Contacts} element={<ContactsScreen />} />
         <Route path='*' element={<ErrorRouteScreen />} />

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Path } from '../../const';
 import { QuestFullInfo } from '../../types/quest';
-import { getDifficultyLocalizedName, getThemeLocalizedName } from '../../utils/utils';
+import { getDifficultyLocalizedName, getReservedQuestUrlById, getThemeLocalizedName } from '../../utils/utils';
 
 type QuestContentProps = {
   quest: QuestFullInfo;
@@ -26,7 +25,7 @@ export default function QuestContent ({quest}: QuestContentProps): JSX.Element {
         </li>
       </ul>
       <p className="quest-page__description">{quest.description}</p>
-      <Link className="btn btn--accent btn--cta quest-page__btn" to={Path.Booking}>Забронировать</Link>
+      <Link className="btn btn--accent btn--cta quest-page__btn" to={getReservedQuestUrlById(quest.id)}>Забронировать</Link>
     </div>
   );
 }

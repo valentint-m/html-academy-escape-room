@@ -21,14 +21,14 @@ export const fetchQuestByIdAction = createAsyncThunk<QuestFullInfo, string, {
   }
 );
 
-export const fetchBookingInfoByIdAction = createAsyncThunk<BookingInfo, string, {
+export const fetchBookingInfoByIdAction = createAsyncThunk<BookingInfo[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchBookingInfoById',
   async (questId, {extra: api}) => {
-    const {data} = await api.get<BookingInfo>(getReservedQuestUrlById(questId));
+    const {data} = await api.get<BookingInfo[]>(getReservedQuestUrlById(questId));
     return data;
   }
 );

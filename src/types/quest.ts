@@ -2,7 +2,7 @@ import { Difficulty, Theme } from '../const';
 
 type PeopleMinMax = [number, number];
 
-type Coords = [number, number];
+export type Coords = [number, number];
 
 type Location = {
   address: string;
