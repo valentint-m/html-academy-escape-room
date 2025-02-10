@@ -46,14 +46,14 @@ enum ThemeName {
 
 enum Difficulty {
   Easy = 'easy',
-  Middle = 'middle',
+  Medium = 'medium',
   Hard = 'hard',
   Any = 'any',
 }
 
 enum DifficultyName {
   Easy = 'Легкий',
-  Middle = 'Средний',
+  Medium = 'Средний',
   Hard = 'Сложный',
   Any = 'Любой',
 }

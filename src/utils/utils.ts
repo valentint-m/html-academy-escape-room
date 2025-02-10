@@ -14,14 +14,14 @@ function getReservedQuestUrlById (id: string) {
 }
 
 function getDifficultyLocalizedName (name: Difficulty) {
-  const difficultyIndex = Object.values(Difficulty).findIndex((difficulty) => difficulty === name.toLowerCase());
+  const difficultyIndex = Object.values(Difficulty).findIndex((difficulty) => difficulty.toLowerCase() === name.toLowerCase());
   const difficultyNames = Object.values(DifficultyName);
 
   return difficultyNames[difficultyIndex];
 }
 
 function getThemeLocalizedName (name: Theme) {
-  const themeIndex = Object.values(Theme).findIndex((theme) => theme === name.toLowerCase());
+  const themeIndex = Object.values(Theme).findIndex((theme) => theme.toLowerCase() === name.toLowerCase());
   const themeNames = Object.values(ThemeName);
 
   return themeNames[themeIndex];
