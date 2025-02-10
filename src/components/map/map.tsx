@@ -1,12 +1,13 @@
 import 'leaflet/dist/leaflet.css';
 import { useRef, useEffect } from 'react';
 import { DefaultCityCoords, UrlMarker } from '../../const';
-import { Icon, Marker, layerGroup } from 'leaflet';
+import { Icon, LeafletMouseEvent, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 
 type MapProps = {
   locations: Array<[number, number]>;
   selectedPoint: [number, number] | undefined;
+  onMarkerClick: (evt: LeafletMouseEvent) => void;
 }
 
 const defaultCustomIcon = new Icon({
@@ -21,8 +22,8 @@ const selectedCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map(props: MapProps): JSX.Element {
-  const {locations, selectedPoint} = props;
+export default function Map(props: MapProps): JSX.Element {
+  const {locations, selectedPoint, onMarkerClick} = props;
   const mapRef = useRef(null);
   const defaultCoords = DefaultCityCoords;
   const map = useMap({mapRef, defaultCoords});
@@ -30,6 +31,7 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
+
       locations.forEach((coords) => {
         const marker = new Marker({
           lat: coords[0],
@@ -42,16 +44,15 @@ function Map(props: MapProps): JSX.Element {
               ? selectedCustomIcon
               : defaultCustomIcon
           )
-          .addTo(markerLayer);
+          .addTo(markerLayer).on('click', onMarkerClick);
       });
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, locations, selectedPoint]);
+  }, [map, locations, selectedPoint, onMarkerClick]);
 
   return <div style={{height: '500px'}} ref={mapRef}></div>;
 }
 
-export default Map;

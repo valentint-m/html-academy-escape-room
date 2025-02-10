@@ -47,7 +47,7 @@ export default function ContactsScreen (): JSX.Element {
             <div className="contacts__map">
               <div className="map">
                 <div className="map__container">
-                  <Map locations={[DefaultCompanyCoords]} selectedPoint={undefined}/>
+                  <Map locations={[DefaultCompanyCoords]} selectedPoint={undefined} onMarkerClick={() => null}/>
                 </div>
               </div>
             </div>
