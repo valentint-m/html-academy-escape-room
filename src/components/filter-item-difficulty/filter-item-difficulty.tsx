@@ -1,11 +1,12 @@
-import { Difficulty, DifficultyName } from '../../const';
+import { Difficulty } from '../../const';
+import { getDifficultyLocalizedName } from '../../utils/utils';
 
 type FilterItemDifficultyProps = {
   type: Difficulty;
-  typeName: DifficultyName;
 }
 
-export default function FilterItemDifficulty ({type, typeName}: FilterItemDifficultyProps): JSX.Element {
+export default function FilterItemDifficulty ({type}: FilterItemDifficultyProps): JSX.Element {
+  const typeName = getDifficultyLocalizedName(type);
   return (
     <li className="filter__item">
       <input type="radio" name="level" id={type} checked />

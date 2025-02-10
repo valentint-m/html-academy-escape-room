@@ -1,11 +1,12 @@
-import { Theme, ThemeName } from '../../const';
+import { Theme } from '../../const';
+import { getThemeLocalizedName } from '../../utils/utils';
 
 type FilterItemThemeProps = {
   type: Theme;
-  typeName: ThemeName;
 }
 
-export default function FilterItemTheme ({type, typeName}: FilterItemThemeProps): JSX.Element {
+export default function FilterItemTheme ({type}: FilterItemThemeProps): JSX.Element {
+  const typeName = getThemeLocalizedName(type);
   return (
     <li className="filter__item">
       <input type="radio" name="type" id={type} checked />
