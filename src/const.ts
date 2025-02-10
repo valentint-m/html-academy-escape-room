@@ -35,6 +35,15 @@ enum Theme {
   All = 'all',
 }
 
+enum ThemeName {
+  Adventure = 'Приключения',
+  Horror = 'Ужасы',
+  Mystic = 'Мистика',
+  Detective = 'Детектив',
+  SciFi = 'Sci-fi',
+  All = 'Все квесты',
+}
+
 enum Difficulty {
   Easy = 'easy',
   Middle = 'middle',
@@ -42,4 +51,12 @@ enum Difficulty {
   Any = 'any',
 }
 
-export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, Difficulty };
+enum DifficultyName {
+  Easy = 'Легкий',
+  Middle = 'Средний',
+  Hard = 'Сложный',
+  Any = 'Любой',
+}
+
+
+export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName };
