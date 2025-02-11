@@ -32,6 +32,11 @@ enum SlotDate {
   Tomorrow = 'tomorrow',
 }
 
+enum SlotDateName {
+  Today = 'сегодня',
+  Tomorrow = 'завтра',
+}
+
 enum Path {
   Main = '/',
   Login = '/login',
@@ -73,4 +78,4 @@ enum DifficultyName {
   Hard = 'Сложный',
 }
 
-export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName, UrlMarker, SlotDate, DefaultCityCoords, DefaultCompanyCoords, DEFAULT_ZOOM };
+export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName, UrlMarker, SlotDate, SlotDateName, DefaultCityCoords, DefaultCompanyCoords, DEFAULT_ZOOM };

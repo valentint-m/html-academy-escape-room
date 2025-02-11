@@ -105,6 +105,7 @@ export const reserveQuestAction = createAsyncThunk<ReservedQuest, BookingPostWit
   async (bookingInfoWithId, {extra: api}) => {
     const {data} = await api.post<ReservedQuest>(getReservedQuestUrlById(bookingInfoWithId.questId), bookingInfoWithId.bookingInfo);
     store.dispatch(fetchReservedQuestsAction());
+    store.dispatch(fetchBookingInfoByIdAction(bookingInfoWithId.questId));
     return data;
   },
 );

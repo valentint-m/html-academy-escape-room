@@ -1,10 +1,12 @@
 import { FormEvent, useState } from 'react';
 import { BookingInfo, BookingPost, BookingPostWithId } from '../../types/quest';
-import { SlotDate } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { Path, SlotDate } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { reserveQuestAction } from '../../store/api-actions/api-actions';
+import { getSubmittingStatus } from '../../store/quest-data/quest-data-selectors';
 import BookingContacts from '../booking-contacts/booking-contacts';
 import BookingFormDate from '../booking-form-date/booking-form-date';
+import { useNavigate } from 'react-router-dom';
 
 type BookingFormProps = {
   bookingInfo: BookingInfo;
@@ -13,7 +15,11 @@ type BookingFormProps = {
 
 export default function BookingForm ({bookingInfo, questId}: BookingFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [selectedTime, setTime] = useState(['date', 'time']);
+
+  const isSubmitting = useAppSelector(getSubmittingStatus);
 
   function checkIfTimeSelected (date: string, time: string): boolean {
     return selectedTime[0] === date && selectedTime[1] === time;
@@ -52,7 +58,11 @@ export default function BookingForm ({bookingInfo, questId}: BookingFormProps): 
         questId: questId,
       };
 
-      dispatch(reserveQuestAction(postInfoWithId));
+      dispatch(reserveQuestAction(postInfoWithId)).then((userComment) => {
+        if (userComment.payload) {
+          navigate(Path.MyQuests);
+        }
+      });
     }
 
   }
@@ -75,7 +85,7 @@ export default function BookingForm ({bookingInfo, questId}: BookingFormProps): 
         </fieldset>
       </fieldset>
       <BookingContacts />
-      <button className="btn btn--accent btn--cta booking-form__submit" type="submit">Забронировать</button>
+      <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={isSubmitting}>Забронировать</button>
       <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
         <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
         <span className="custom-checkbox__icon">

@@ -1,4 +1,4 @@
-import { ApiRoute, Difficulty, DifficultyName, Theme, ThemeName } from '../const';
+import { ApiRoute, Difficulty, DifficultyName, SlotDate, SlotDateName, Theme, ThemeName } from '../const';
 import { Quest } from '../types/quest';
 
 function getQuestUrlById (id: string) {
@@ -27,6 +27,13 @@ function getThemeLocalizedName (name: Theme) {
   return themeNames[themeIndex];
 }
 
+function getDateLocalizedName (date: string) {
+  const dateIndex = Object.values(SlotDate).findIndex((slotDate) => slotDate.toLowerCase() === date.toLowerCase());
+  const dateNames = Object.values(SlotDateName);
+
+  return dateNames[dateIndex];
+}
+
 function filterQuests (quests: Quest[], theme: Theme, difficulty: Difficulty) {
   const questsByDifficulty = difficulty === Difficulty.Any ? quests : quests.filter((quest) => quest.level === difficulty);
   const questsByThemeAndDifficulty = theme === Theme.All ? questsByDifficulty : questsByDifficulty.filter((quest) => quest.type === theme);
@@ -48,4 +55,4 @@ function getRandomInt(min: number, max: number) {
 }
 
 
-export { getQuestUrlById, getReservationUrlById, getReservedQuestUrlById, filterQuests, getFormattedDate, getRandomInt, getDifficultyLocalizedName, getThemeLocalizedName };
+export { getQuestUrlById, getReservationUrlById, getReservedQuestUrlById, filterQuests, getFormattedDate, getRandomInt, getDifficultyLocalizedName, getThemeLocalizedName, getDateLocalizedName };
