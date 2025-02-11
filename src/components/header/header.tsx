@@ -4,8 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { logoutAction } from '../../store/api-actions/api-actions';
 
-//class not-disabled active
-
 export default function Header (): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
