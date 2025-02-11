@@ -1,53 +1,91 @@
+import { FormEvent, useState } from 'react';
+import { BookingInfo, BookingPost, BookingPostWithId } from '../../types/quest';
+import { Path, SlotDate } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { reserveQuestAction } from '../../store/api-actions/api-actions';
+import { getSubmittingStatus } from '../../store/quest-data/quest-data-selectors';
 import BookingContacts from '../booking-contacts/booking-contacts';
+import BookingFormDate from '../booking-form-date/booking-form-date';
+import { useNavigate } from 'react-router-dom';
 
-export default function BookingForm (): JSX.Element {
+type BookingFormProps = {
+  bookingInfo: BookingInfo;
+  questId: string;
+}
+
+export default function BookingForm ({bookingInfo, questId}: BookingFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [selectedTime, setTime] = useState(['date', 'time']);
+
+  const isSubmitting = useAppSelector(getSubmittingStatus);
+
+  function checkIfTimeSelected (date: string, time: string): boolean {
+    return selectedTime[0] === date && selectedTime[1] === time;
+  }
+
+  function handleRadioChange (date: string, time: string) {
+    setTime([date, time]);
+  }
+
+  function handleSubmit (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.currentTarget);
+
+    const children = formData.get('children') as string | null;
+    const person = formData.get('person') as string | null;
+    const tel = formData.get('tel') as string | null;
+    const name = formData.get('name') as string | null;
+
+    if (children && person && tel && name) {
+      const personCount = Number(person);
+      const isWithChildren = children === 'on';
+
+      const postInfo: BookingPost = {
+        date: selectedTime[0],
+        time: selectedTime[1],
+        contactPerson: name,
+        phone: tel,
+        withChildren: isWithChildren,
+        peopleCount: personCount,
+        placeId: bookingInfo.id
+      };
+
+      const postInfoWithId: BookingPostWithId = {
+        bookingInfo: postInfo,
+        questId: questId,
+      };
+
+      dispatch(reserveQuestAction(postInfoWithId)).then((userComment) => {
+        if (userComment.payload) {
+          navigate(Path.MyQuests);
+        }
+      });
+    }
+
+  }
+
   return (
-    <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
+    <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={handleSubmit}>
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Выбор даты и времени</legend>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Сегодня</legend>
           <div className="booking-form__date-inner-wrapper">
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="today9h45m" name="date" required value="today9h45m" /><span className="custom-radio__label">9:45</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="today15h00m" name="date" checked required value="today15h00m" /><span className="custom-radio__label">15:00</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="today17h30m" name="date" required value="today17h30m" /><span className="custom-radio__label">17:30</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="today19h30m" name="date" required value="today19h30m" disabled /><span className="custom-radio__label">19:30</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="today21h30m" name="date" required value="today21h30m" /><span className="custom-radio__label">21:30</span>
-            </label>
+            {bookingInfo.slots.today.map((slot) => <BookingFormDate date={SlotDate.Today} time={slot.time} isAvailable={slot.isAvailable} isChecked={checkIfTimeSelected(SlotDate.Today, slot.time)} onChange={handleRadioChange} key={slot.time}/>)}
           </div>
         </fieldset>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Завтра</legend>
           <div className="booking-form__date-inner-wrapper">
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="tomorrow11h00m" name="date" required value="tomorrow11h00m" /><span className="custom-radio__label">11:00</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="tomorrow15h00m" name="date" required value="tomorrow15h00m" disabled /><span className="custom-radio__label">15:00</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="tomorrow17h30m" name="date" required value="tomorrow17h30m" disabled /><span className="custom-radio__label">17:30</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="tomorrow19h45m" name="date" required value="tomorrow19h45m" /><span className="custom-radio__label">19:45</span>
-            </label>
-            <label className="custom-radio booking-form__date">
-              <input type="radio" id="tomorrow21h30m" name="date" required value="tomorrow21h30m" /><span className="custom-radio__label">21:30</span>
-            </label>
+            {bookingInfo.slots.tomorrow.map((slot) => <BookingFormDate date={SlotDate.Tomorrow} time={slot.time} isAvailable={slot.isAvailable} isChecked={checkIfTimeSelected(SlotDate.Tomorrow, slot.time)} onChange={handleRadioChange} key={slot.time}/>)}
           </div>
         </fieldset>
       </fieldset>
       <BookingContacts />
-      <button className="btn btn--accent btn--cta booking-form__submit" type="submit">Забронировать</button>
+      <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={isSubmitting}>Забронировать</button>
       <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
         <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
         <span className="custom-checkbox__icon">
