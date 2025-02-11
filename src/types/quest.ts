@@ -53,9 +53,14 @@ export type BookingPost = {
   time: string;
   contactPerson: string;
   phone: string;
-  withChildren: true;
-  peopleCount: 3;
+  withChildren: boolean;
+  peopleCount: number;
   placeId: string;
+}
+
+export type BookingPostWithId = {
+  bookingInfo: BookingPost;
+  questId: string;
 }
 
 export type ReservedQuest = {

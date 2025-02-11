@@ -64,7 +64,7 @@ export default function BookingScreen (): JSX.Element {
               <p className="booking-map__address">Вы&nbsp;выбрали: {selectedLocation?.location.address || null}</p>
             </div>
           </div>
-          <BookingForm bookingInfo={selectedLocation}/>
+          <BookingForm bookingInfo={selectedLocation} questId={questById.id} />
         </div>
       </main>
     </>

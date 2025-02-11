@@ -1,3 +1,8 @@
+const DefaultCityCoords: [number, number] = [59.57, 30.19];
+const DefaultCompanyCoords: [number, number] = [59.968322, 30.317359];
+
+const DEFAULT_ZOOM = 8;
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -22,9 +27,10 @@ enum UrlMarker {
   Selected = '/img/svg/pin-active.svg'
 }
 
-const DefaultCityCoords: [number, number] = [59.57, 30.19];
-const DefaultCompanyCoords: [number, number] = [59.968322, 30.317359];
-const DEFAULT_ZOOM = 8;
+enum SlotDate {
+  Today = 'today',
+  Tomorrow = 'tomorrow',
+}
 
 enum Path {
   Main = '/',
@@ -67,4 +73,4 @@ enum DifficultyName {
   Hard = 'Сложный',
 }
 
-export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName, UrlMarker, DefaultCityCoords, DefaultCompanyCoords, DEFAULT_ZOOM };
+export { AuthorizationStatus, NameSpace, ApiRoute, Path, Theme, ThemeName, Difficulty, DifficultyName, UrlMarker, SlotDate, DefaultCityCoords, DefaultCompanyCoords, DEFAULT_ZOOM };

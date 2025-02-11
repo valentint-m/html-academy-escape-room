@@ -6,7 +6,7 @@ import { AuthData } from '../../types/auth-data';
 import { UserData } from '../../types/user-data';
 import { dropToken, saveToken } from '../../services/token';
 import { store } from '..';
-import { BookingInfo, BookingPost, Quest, QuestFullInfo, ReservedQuest } from '../../types/quest';
+import { BookingInfo, BookingPostWithId, Quest, QuestFullInfo, ReservedQuest } from '../../types/quest';
 import { getQuestUrlById, getReservationUrlById, getReservedQuestUrlById } from '../../utils/utils';
 
 export const fetchQuestByIdAction = createAsyncThunk<QuestFullInfo, string, {
@@ -96,14 +96,14 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const reserveQuestAction = createAsyncThunk<BookingPost, BookingPost, {
+export const reserveQuestAction = createAsyncThunk<ReservedQuest, BookingPostWithId, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/reserveQuest',
-  async (bookingInfo, {extra: api}) => {
-    const {data} = await api.post<BookingPost>(getReservedQuestUrlById(bookingInfo.placeId), bookingInfo);
+  async (bookingInfoWithId, {extra: api}) => {
+    const {data} = await api.post<ReservedQuest>(getReservedQuestUrlById(bookingInfoWithId.questId), bookingInfoWithId.bookingInfo);
     store.dispatch(fetchReservedQuestsAction());
     return data;
   },

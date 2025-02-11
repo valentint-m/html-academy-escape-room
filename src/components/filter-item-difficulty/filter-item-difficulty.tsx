@@ -13,13 +13,13 @@ export default function FilterItemDifficulty ({type}: FilterItemDifficultyProps)
   const typeName = getDifficultyLocalizedName(type);
   const isChecked = type === useAppSelector(getDifficultyName);
 
-  function handleClick () {
+  function handleChange () {
     dispatch(changeDifficulty(type));
   }
 
   return (
     <li className="filter__item">
-      <input type="radio" name="level" id={type} checked={isChecked} onClick={handleClick}/>
+      <input type="radio" name="level" id={type} checked={isChecked} onChange={handleChange}/>
       <label className="filter__label" htmlFor={type}><span className="filter__label-text">{typeName}</span>
       </label>
     </li>

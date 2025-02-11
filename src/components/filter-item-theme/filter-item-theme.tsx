@@ -13,12 +13,12 @@ export default function FilterItemTheme ({type}: FilterItemThemeProps): JSX.Elem
   const typeName = getThemeLocalizedName(type);
   const isChecked = type === useAppSelector(getThemeName);
 
-  function handleClick () {
+  function handleChange () {
     dispatch(changeTheme(type));
   }
   return (
     <li className="filter__item">
-      <input type="radio" name="type" id={type} checked={isChecked} onClick={handleClick}/>
+      <input type="radio" name="type" id={type} checked={isChecked} onChange={handleChange}/>
       <label className="filter__label" htmlFor={type}>
         <svg className="filter__icon" width="26" height="30" aria-hidden="true">
           <use xlinkHref="#icon-all-quests"></use>
