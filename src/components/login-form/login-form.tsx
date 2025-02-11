@@ -1,6 +1,12 @@
-export default function LoginForm (): JSX.Element {
+import { FormEvent } from 'react';
+
+type LoginFormProps = {
+  onSubmit: (evt: FormEvent<HTMLFormElement>) => void;
+}
+
+export default function LoginForm ({onSubmit}: LoginFormProps): JSX.Element {
   return (
-    <form className="login-form" action="https://echo.htmlacademy.ru/" method="post">
+    <form className="login-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={onSubmit}>
       <div className="login-form__inner-wrapper">
         <h1 className="title title--size-s login-form__title">Вход</h1>
         <div className="login-form__inputs">

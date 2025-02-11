@@ -1,10 +1,19 @@
 import { Link } from 'react-router-dom';
-import { Path } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import { logoutAction } from '../../store/api-actions/api-actions';
 
 //class not-disabled active
 
 export default function Header (): JSX.Element {
-  const isLoggedIn = true;
+  const dispatch = useAppDispatch();
+  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+
+  function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  }
 
   return (
     <header className="header">
@@ -22,7 +31,7 @@ export default function Header (): JSX.Element {
             <li className="main-nav__item">
               <Link className="link" to={Path.Contacts}>Контакты</Link>
             </li>
-            {isLoggedIn && (
+            {isAuthorized && (
               <li className="main-nav__item">
                 <Link className="link" to={Path.MyQuests}>Мои бронирования</Link>
               </li>
@@ -30,8 +39,8 @@ export default function Header (): JSX.Element {
           </ul>
         </nav>
         <div className="header__side-nav">
-          {isLoggedIn ? (
-            <Link className="btn btn--accent header__side-item" to={Path.Main}>Выйти</Link>
+          {isAuthorized ? (
+            <Link className="btn btn--accent header__side-item" to={Path.Main} onClick={handleLogoutButtonClick}>Выйти</Link>
           ) : (
             <Link className="btn header__side-item header__login-btn" to={Path.Login}>Вход</Link>
           )}
